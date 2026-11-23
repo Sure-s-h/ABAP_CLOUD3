@@ -21,7 +21,7 @@ CLASS ltc_atc_findings IMPLEMENTATION.
   METHOD setup.
     cut = NEW #( ).
 
-    " Reference value read directly from the database test
+    " Reference value read directly from the database conflict scenario
     SELECT COUNT(*) FROM i_currency
       WHERE currency IS NOT INITIAL
       INTO @db_count.
