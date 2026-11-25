@@ -1,0 +1,49 @@
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Sales Order - Root'
+define root view entity ZR_RO_SalesOrderTP
+  as select from zro_so_hdr
+  composition [0..*] of ZR_RO_SalesOrderItemTP as _Item
+{
+  key order_uuid            as OrderUUID,
+      sales_order_id        as SalesOrderID,
+      customer_id           as CustomerID,
+      sales_org             as SalesOrg,
+      order_date            as OrderDate,
+      requested_deliv_date  as RequestedDeliveryDate,
+      @Semantics.amount.currencyCode: 'CurrencyCode'
+      net_amount            as NetAmount,
+      currency_code         as CurrencyCode,
+      overall_status        as OverallStatus,
+      @Semantics.user.createdBy: true
+      local_created_by      as LocalCreatedBy,
+      @Semantics.systemDateTime.createdAt: true
+      local_created_at      as LocalCreatedAt,
+      @Semantics.user.localInstanceLastChangedBy: true
+      local_last_changed_by as LocalLastChangedBy,
+      @Semantics.systemDateTime.localInstanceLastChangedAt: true
+      local_last_changed_at as LocalLastChangedAt,
+      @Semantics.systemDateTime.lastChangedAt: true
+      last_changed_at       as LastChangedAt,
+      _Item
+}
+/*+[internal] {
+"BASEINFO":
+{
+"FROM":
+[
+"ZRO_SO_HDR"
+],
+"ASSOCIATED":
+[
+"ZR_RO_SALESORDERITEMTP"
+],
+"BASE":
+[],
+"ANNO_REF":
+[],
+"SCALAR_FUNCTION":
+[],
+"VERSION":0,
+"ANNOREF_EVALUATION_ERROR":""
+}
+}*/
